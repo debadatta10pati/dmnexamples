@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_92496037-65F4-4FCD-90AA-1A098B25B7CB" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_4C44DDF3-06F9-40AB-9277-1AA312E3BB85" name="Calculate Car Insurance - Use Custom Data Object" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://kiegroup.org/dmn/_92496037-65F4-4FCD-90AA-1A098B25B7CB">
+  <dmn:extensionElements/>
+  <dmn:itemDefinition id="_39FA8017-6DB5-41D6-8ACF-9546BC3765D1" name="Car" isCollection="false">
+    <dmn:itemComponent id="_6FD3937D-6878-4DFC-BB86-51C58BED929A" name="mileage" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_BF7DBEF8-8403-4674-AA8A-C7FF301DFAAC" name="type" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_06ECB983-B829-4A6C-A079-F30F6AC52009" name="price" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:decision id="_9B905D0B-F151-47AD-8CE7-2BEBD8138371" name="Insurance Premium">
+    <dmn:extensionElements/>
+    <dmn:variable id="_E10E9327-AE6B-485E-A648-BE958DD52BD8" name="Insurance Premium" typeRef="number"/>
+    <dmn:informationRequirement id="_15F837EF-26CB-4161-A311-B84CAEF7E059">
+      <dmn:requiredInput href="#_E0816A8E-CAAA-4D1E-832C-7D2B2BB7CC68"/>
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="_97433ADD-E8FA-4431-87D1-3E02BFC3DDA7" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+      <dmn:input id="_6EF8AED5-1D91-4A43-BB3B-A470C60171D7">
+        <dmn:inputExpression id="_3C3C539A-08BD-42E9-9CAB-19C55C89836F" typeRef="number">
+          <dmn:text>Car Data.mileage</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="_8EE5BC7A-6881-4C99-ACE5-FF8380A82DA5">
+        <dmn:inputExpression id="_F34ABB56-5A46-4F36-9417-AEAA3C76D22E" typeRef="number">
+          <dmn:text>Car Data.price</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="_79652EED-0F42-4FA4-89B8-ABFA02A4A12B">
+        <dmn:inputExpression id="_7F639DC6-549E-4D8D-963F-1BEFE4C9DC14" typeRef="string">
+          <dmn:text>Car Data.type</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:output id="_541D79DC-BB93-4E06-BED4-6FA4D02AA416"/>
+      <dmn:annotation name="annotation-1"/>
+      <dmn:rule id="_65EC843A-8547-4485-8965-F88C34606B40">
+        <dmn:inputEntry id="_EBEDDF9A-2A8B-4436-9AAC-563A1BF0E0A6">
+          <dmn:text>&lt;100000</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_F07BD48A-0AF5-45F7-A17F-69C836ECCD05">
+          <dmn:text>&gt;20000</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_90AF53A3-7EF2-415F-A5E3-00218A2065F7">
+          <dmn:text>"Electric"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_22F4413F-FF1A-422A-BFD3-607A3847ED11">
+          <dmn:text>400</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text></dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="_2DE0A71C-687D-4BC6-AE76-81BBA9651A4C">
+        <dmn:inputEntry id="_514CB11C-E5FD-4255-ABE5-0A8D0DCDBA17">
+          <dmn:text>[100000..200000]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_A6410DA2-124D-448B-A601-107F779728BF">
+          <dmn:text>[1000..20000]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_D08C0E31-D8D1-4920-A32F-683434599124">
+          <dmn:text>"Electric"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_D20AD2A1-AF8F-4ADE-9074-8FC43ED276EB">
+          <dmn:text>300</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text></dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="_192401C7-77B1-457C-9583-15CE61F8D3B4">
+        <dmn:inputEntry id="_A57317E2-D0C4-4AFB-B097-08254DF497EC">
+          <dmn:text>&gt;200000</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_5FB48ADF-29B2-4C1B-9BEE-A565775D913A">
+          <dmn:text>[1000..20000]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_D4DCAA82-F2E7-4C89-AB46-BE4D2CCEF3E7">
+          <dmn:text>"Electric"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_3E3D6033-17C1-4C15-A360-88595D0DC181">
+          <dmn:text>200</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text></dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmn:inputData id="_E0816A8E-CAAA-4D1E-832C-7D2B2BB7CC68" name="Car Data">
+    <dmn:extensionElements/>
+    <dmn:variable id="_D43E04BC-0CEE-42AC-87A5-58709137174A" name="Car Data" typeRef="Car"/>
+  </dmn:inputData>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_97433ADD-E8FA-4431-87D1-3E02BFC3DDA7">
+            <kie:width>50.0</kie:width>
+            <kie:width>232.0</kie:width>
+            <kie:width>260.0</kie:width>
+            <kie:width>163.0</kie:width>
+            <kie:width>176.0</kie:width>
+            <kie:width>100.0</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-_9B905D0B-F151-47AD-8CE7-2BEBD8138371" dmnElementRef="_9B905D0B-F151-47AD-8CE7-2BEBD8138371" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="356" y="149" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_E0816A8E-CAAA-4D1E-832C-7D2B2BB7CC68" dmnElementRef="_E0816A8E-CAAA-4D1E-832C-7D2B2BB7CC68" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="280" y="312" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="dmnedge-_15F837EF-26CB-4161-A311-B84CAEF7E059" dmnElementRef="_15F837EF-26CB-4161-A311-B84CAEF7E059">
+        <di:waypoint x="330" y="337"/>
+        <di:waypoint x="406" y="199"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>

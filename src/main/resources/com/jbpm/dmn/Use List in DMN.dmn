@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_41E773AC-5E3A-49E5-981B-E44A630E81EB" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_7C847294-F40E-4688-8BB9-548FB3954078" name="Use List in DMN" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://kiegroup.org/dmn/_41E773AC-5E3A-49E5-981B-E44A630E81EB">
+  <dmn:extensionElements/>
+  <dmn:itemDefinition id="_3397CAA3-39EF-4F42-951D-6448034D95AB" name="Credit_Score_Rating" isCollection="false">
+    <dmn:typeRef>string</dmn:typeRef>
+    <dmn:allowedValues kie:constraintType="enumeration" id="_57123E17-2CA9-4D05-811E-9B6B63EB27A3">
+      <dmn:text>"Good", "Excellent", "Bad"</dmn:text>
+    </dmn:allowedValues>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_F93C7AD6-E984-46A6-843F-18D4742D3391" name="Loan_Qualification" isCollection="false">
+    <dmn:itemComponent id="_5D6F2B6A-5A86-45D1-8FE5-2A5B7EDC7FBF" name="Reason" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_C2B9B654-1467-4EAC-AA8F-8C8988F488BE" name="Qualification" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+      <dmn:allowedValues kie:constraintType="enumeration" id="_9824A4E2-01DE-40ED-986D-41CF8929C4D2">
+        <dmn:text>"Qualified", "Not Qualified"</dmn:text>
+      </dmn:allowedValues>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:inputData id="_0907CA8D-3048-4155-9313-D4BCCE9571A5" name="CreditScore.FICO">
+    <dmn:extensionElements/>
+    <dmn:variable id="_C72EE152-D662-42F8-B22F-BDF808BAA151" name="CreditScore.FICO" typeRef="number"/>
+  </dmn:inputData>
+  <dmn:decision id="_C62A8247-6900-4C26-A216-58778488C54C" name="Credit Score Rating">
+    <dmn:extensionElements/>
+    <dmn:variable id="_7EBC0F3F-FA07-4BF6-B9E8-BFB9D920F6AE" name="Credit Score Rating" typeRef="Credit_Score_Rating"/>
+    <dmn:informationRequirement id="_36A50766-DDE4-4895-BD45-338F616DCFF6">
+      <dmn:requiredInput href="#_0907CA8D-3048-4155-9313-D4BCCE9571A5"/>
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="_A76D20FB-68E7-4E37-BB8E-2DEB3A1C046F" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+      <dmn:input id="_5A636609-C53F-4D16-8E0A-C8AC67C91671">
+        <dmn:inputExpression id="_261FFE7B-99CD-4DDC-8E8F-4B57F9C14584" typeRef="number">
+          <dmn:text>CreditScore.FICO</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:output id="_94BC0C58-D1A0-4480-85C0-38E28FA10A59"/>
+      <dmn:annotation name="annotation-1"/>
+      <dmn:rule id="_F09B1B4A-B6A3-4708-BCF6-B2C452A88A38">
+        <dmn:inputEntry id="_16BA88E7-5401-4FD5-BE8F-B56F72228E73">
+          <dmn:text>&gt;750</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_FE76B7C3-D0BC-433C-8977-3682262EA4F2">
+          <dmn:text>"Excellent"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text></dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="_9104EAD3-812F-4F42-8938-1D4495800DB2">
+        <dmn:inputEntry id="_B578A48F-3F42-46B8-805D-57804A51AC69">
+          <dmn:text>[600..750]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_D5429CCF-6C97-40B3-A28C-BEC177A5B11E">
+          <dmn:text>"Good"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text></dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="_9B0CE9AC-FAAB-458A-B22A-C62F35904B6C">
+        <dmn:inputEntry id="_7109E3D1-4558-496D-9FA2-5F1452FCB196">
+          <dmn:text>&lt;600</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_9B74A836-FC86-42D0-BCFF-05239F4CA12C">
+          <dmn:text>"Bad"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text></dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmn:decision id="_1956A61F-3162-437F-B6EC-79F187E7ECFF" name="Pre qualification">
+    <dmn:extensionElements/>
+    <dmn:variable id="_20D02F16-9B20-4D46-8355-6F1D6B5106AD" name="Pre qualification" typeRef="Loan_Qualification"/>
+    <dmn:informationRequirement id="_7949D99E-1290-45B7-9F1E-A919E3781694">
+      <dmn:requiredDecision href="#_C62A8247-6900-4C26-A216-58778488C54C"/>
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="_8FD42FDF-700D-462D-8D66-29A6BF3F2974" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+      <dmn:input id="_9E1D1633-DE71-416D-ADA1-31B257FB128E">
+        <dmn:inputExpression id="_3F6837F8-42C2-4FA6-90B8-34FE4D36167A" typeRef="Credit_Score_Rating">
+          <dmn:text>Credit Score Rating</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:output id="_37A55368-CE4F-4CC1-B506-408CF38DF3E7" name="Qualification" typeRef="string"/>
+      <dmn:output id="_D51108C1-27B9-4E93-A5B9-1903D37CD17C" name="Reason" typeRef="string"/>
+      <dmn:annotation name="annotation-1"/>
+      <dmn:rule id="_EC57AE77-1FA5-4ED5-918B-F965E0E57BB0">
+        <dmn:inputEntry id="_B63F7061-2EC2-421A-A85F-98953DD7A86E">
+          <dmn:text>"Excellent","Good"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_4F6C008A-C333-4AD5-B82B-57293B6443AA">
+          <dmn:text>"Qualified"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:outputEntry id="_F94729AF-393B-430E-A3E2-CC8A59FDEA79">
+          <dmn:text>"Great"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text></dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="_00F7A1C4-DD31-4A6C-A815-D0CF2158DD39">
+        <dmn:inputEntry id="_8586B6FA-4181-477A-919E-2A47D4329DA9">
+          <dmn:text>"Bad"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_9C3E3C9F-F2E3-428E-A137-A09EF4DE9E40">
+          <dmn:text>"Not Qualified"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:outputEntry id="_547DF697-B483-41BE-A1E1-C25F0B6AE322">
+          <dmn:text>"Credit Score too low"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text></dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_A76D20FB-68E7-4E37-BB8E-2DEB3A1C046F">
+            <kie:width>50.0</kie:width>
+            <kie:width>207.0</kie:width>
+            <kie:width>194.0</kie:width>
+            <kie:width>100.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_8FD42FDF-700D-462D-8D66-29A6BF3F2974">
+            <kie:width>50.0</kie:width>
+            <kie:width>240.0</kie:width>
+            <kie:width>331.0</kie:width>
+            <kie:width>208.0</kie:width>
+            <kie:width>100.0</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-_0907CA8D-3048-4155-9313-D4BCCE9571A5" dmnElementRef="_0907CA8D-3048-4155-9313-D4BCCE9571A5" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="170" y="315" width="132" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_C62A8247-6900-4C26-A216-58778488C54C" dmnElementRef="_C62A8247-6900-4C26-A216-58778488C54C" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="193" y="182" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_1956A61F-3162-437F-B6EC-79F187E7ECFF" dmnElementRef="_1956A61F-3162-437F-B6EC-79F187E7ECFF" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="354" y="182" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="dmnedge-_36A50766-DDE4-4895-BD45-338F616DCFF6" dmnElementRef="_36A50766-DDE4-4895-BD45-338F616DCFF6">
+        <di:waypoint x="236" y="340"/>
+        <di:waypoint x="243" y="232"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_7949D99E-1290-45B7-9F1E-A919E3781694" dmnElementRef="_7949D99E-1290-45B7-9F1E-A919E3781694">
+        <di:waypoint x="243" y="207"/>
+        <di:waypoint x="404" y="232"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>
